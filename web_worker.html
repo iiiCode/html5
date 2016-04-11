@@ -1,0 +1,47 @@
+<HTML>
+	<HEAD>
+		<TITLE>Web Worker Test...</TITLE>
+	</HEAD>
+
+	<BODY>
+		<P>Counter: <OUTPUT id="result"></OUTPUT></P>
+		<BUTTON onClick="start_web_worker()">Start Web Worker</BUTTON>
+		<BUTTON onClick="stop_web_worker()">Stop Web Worker</BUTTON>
+
+		<script type="text/javascript">
+			
+			var web_worker = undefined;
+
+			function start_web_worker() {
+				//alert("start_web_worker...");
+				if (typeof(Worker) !== "undefined") {
+					//alert("Your browser support Web Worker");
+
+					if (web_worker == undefined) {
+						web_worker = new Worker("web_worker.js");
+						//alert("New worker");
+					}
+
+					web_worker.onmessage = function(event) {
+						//alert("data: " + event.data);
+						display(event.data);
+					};
+
+				} else {
+					alert("Your browser do not support Web Worker.");
+				}
+			}
+
+			function stop_web_worker() {
+				//alert("stop_web_worker...");
+				web_worker.terminate();
+				web_worker = undefined;
+			}
+
+			function display(counter) {
+				document.getElementById("result").innerHTML = counter;
+			}
+
+		</script>
+	</BODY>
+</HTML>
