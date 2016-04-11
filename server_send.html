@@ -1,0 +1,37 @@
+<HTML>
+	<HEAD>
+		<TITLE>Test Server Send</TITLE>
+	</HEAD>
+
+	<BODY>
+		<P>Time: <OUTPUT id="result"></OUTPUT></P>
+
+		<script type="text/javascript">
+			
+			var text = undefined;
+
+			function showTime(time) {
+				text = document.getElementById("result").innerHTML;
+				text = text + time + "<BR />";
+				document.getElementById("result").innerHTML = text;
+			}
+
+			var es = undefined;
+
+			if (typeof(EventSource) !== undefined) {
+				//alert("Your browser support EventSource");
+
+				if (es == undefined) {
+					es = new EventSource("send_time.php");
+
+					es.onmessage = function(event) {
+						showTime(event.data);
+					}
+				}
+			} else {
+				alert("Your browser do not support EventSource");
+			}
+
+		</script>
+	</BODY>
+</HTML>
