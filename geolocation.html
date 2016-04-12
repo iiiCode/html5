@@ -1,0 +1,58 @@
+<HTML>
+	<HEAD>
+		<TITLE>Test Geolocation</TITLE>
+	</HEAD>
+
+	<BODY>
+		<P>Latitude: <OUTPUT id="latitude"></OUTPUT></P>
+		<P>longitude: <OUTPUT id="longitude"></OUTPUT></P>
+		<P>Log: <OUTPUT id="log"></OUTPUT></P>
+
+		<script type="text/javascript">
+			function showGeolocationLog(log) {
+				document.getElementById("log").innerHTML = log;
+			}
+
+			function setLatitude(latitude) {
+				document.getElementById("latitude").innerHTML = latitude;
+			}
+
+			function setLongitude(longitude) {
+				document.getElementById("longitude").innerHTML = longitude;
+			}
+
+			function showPosition(position) {
+				setLatitude(position.coords.latitude);
+				setLongitude(position.coords.longitude);
+			}
+
+			function showError(error) {
+				switch(error.code) {
+					case error.PERMISSION_DENIED:
+						showGeolocationLog("PERMISSION_DENIED");
+						break;
+					case error.POSITION_UNAVAILABLE:
+						showGeolocationLog("POSITION_UNAVAILABLE");
+						break;
+					case error.TIMEOUT:
+						showGeolocationLog("TIMEOUT");
+						break;
+					case error.UNKNOW_ERROR:
+						showGeolocationLog("UNKNOW_ERROR");
+						break;
+					default:
+						showGeolocationLog("Other errors occured...");
+						break;
+				}
+			}
+
+			if (navigator.geolocation) {
+				showGeolocationLog("Your browser support geolocation.");
+
+				navigator.geolocation.getCurrentPosition(showPosition, showError);
+			} else {
+				showGeolocationLog("Your browser do not support geolocation.");
+			}
+		</script>
+	</BODY>
+</HTML>
