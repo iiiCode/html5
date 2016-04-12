@@ -1,0 +1,27 @@
+<HTML>
+
+	<HEAD>
+		<TITLE>Test Session Storage</TITLE>
+	</HEAD>
+
+	<BODY>
+		
+		<P>PageCount: <OUTPUT id="result"></OUTPUT></P>
+
+		<script type="text/javascript">
+			
+			if (sessionStorage.pagecount) {
+				sessionStorage.pagecount = Number(sessionStorage.pagecount) + 1;
+			} else {
+				sessionStorage.pagecount = 1;
+			}
+
+			function showPageCount(count) {
+				document.getElementById("result").innerHTML = count;
+			}
+
+			showPageCount(sessionStorage.pagecount);
+			
+		</script>
+	</BODY>
+</HTML>
